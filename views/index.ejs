@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>The Dojo Message Board</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<style>
+  .container1 {
+margin: 0px 0px 0px 30%;
+padding: 0px 0px 0px 100px;
+
+  }
+
+  .error{
+    color:red;
+
+  }
+</style>
+
+</head>
+
+<body>
+<div class="container1">
+<h1>The Dojo Messsage Board</h1>
+
+
+
+<!-- <% if(messages.name) { %>
+     <% for (var x of messages.name) { %>
+      <h3><%= x %></h3>
+     <% } %>
+ <% } %>
+
+ <% if(messages.message) { %>
+     <% for (var x of messages.message) { %>
+      <h3><%= x %></h3>
+     <% } %>
+ <% } %>
+
+ <% if(messages.comment) { %>
+     <% for (var x of messages.comment) { %>
+      <h3><%= x %></h3>
+     <% } %>
+ <% } %> -->
+
+<!-- tip to easily see objects printed in full instead of [object Object] -->
+<% JSON.stringify(messages) %> 
+<!-- based on the structure of your messages, determine how to display them -->
+<% if(messages.registration) { %>
+     <% for (var x of messages.registration) { %>
+      <p class ="error"><%= x %></p>
+     <% } %>
+ <% } %>
+
+
+
+    <form action="/processMessage" method="post">
+          Name: <input type="text" name="name"><br><br>
+          Message: <input type="text" name="message"><br><br>
+          <button type="submit">Post message</button><br><br>
+    </form>
+
+
+      <% for (var i in data){ %>
+
+     <p>Name: <%= data[i].name %></p>
+     <p>Message: <%= data[i].message %><br><br></p>
+
+        <% for(var j = 0; j < data[i].comments.length;j++) {%>
+          <ul><p>Name: <%= data[i].comments[j].name %></p></ul>
+          <ul><p>Comment: <%= data[i].comments[j].comment %></p></ul>
+        <% } %>
+
+      <form action="/processComment/<%= data[i]._id %>" method="post">
+            Name: <input type="text" name="name"><br><br>
+
+            Comment: <input type="text" name="comment"><br><br>
+            <button type="submit">Post comment</button><br><br>
+      </form>
+
+
+     <% } %>
+
+
+<!--      <ul><p>Object: <%= data[1] %></p></ul> -->
+<!--       <ul><p>Name: <%= data[1].comments[0].name %></p></ul>
+      <ul><p>Comment: <%= data[1].comments[0].comment %></p></ul>
+ -->
+
+<!--       <% for(var j = 0; j < data[1].comments.length;j++) {%>
+
+      <ul><p>Name: <%= data[1].comments[j].name %></p></ul>
+      <ul><p>Comment: <%= data[1].comments[j].comment %></p></ul>
+
+      <% } %> -->
+
+
+
+
+
+</div>
+</body>
+</html>
